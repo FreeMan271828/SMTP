@@ -1,0 +1,6 @@
+{
+    "DbConnection":
+    {
+        "DataSource" : "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk"
+    }
+}
