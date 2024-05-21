@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
- *数据库连接
+ *方法类，获取数据库连接实例
  */
 public class Conn { // 创建类Conn
     /**

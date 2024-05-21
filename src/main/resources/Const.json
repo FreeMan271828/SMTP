@@ -1,7 +1,7 @@
 {
     "DbConnection1":
     {
-        "dataSource" : "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=gbk",
+        "url" : "jdbc:mysql://localhost:3306/test",
         "name": "root",
         "password": ""
     }

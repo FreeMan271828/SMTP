@@ -13,6 +13,7 @@ public class Modify {
      * @param newUser 新的用户实例
      */
     public int modifyUser(User user,User newUser){
+
         return 0;
     }
 
