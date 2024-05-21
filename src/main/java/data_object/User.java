@@ -1,4 +1,4 @@
-package data;
+package data_object;
 
 /**
  * User
@@ -55,5 +55,4 @@ public class User {
         this.email = email;
     }
 
-    
 }

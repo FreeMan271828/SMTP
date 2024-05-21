@@ -1,15 +1,21 @@
-package dao;
+package data_access;
+
+import data_object.DataBaseConn;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conn { // 创建类Conn
+/**
+ *数据库连接方法
+ */
+public class Connect { // 创建类Conn
     Connection con; // 声明Connection对象
-    public static String user;
-    public static String password;
 
-    public Connection getConnection() { // 建立返回值为Connection的方法
+    public Connection getConnection(DataBaseConn dataBaseConn) { // 建立返回值为Connection的方法
+        String user = dataBaseConn.getName();
+        String password = dataBaseConn.getPassword();
+        String url = dataBaseConn.getUrl();
         try { // 加载数据库驱动类
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("数据库驱动加载成功");
@@ -26,10 +32,5 @@ public class Conn { // 创建类Conn
             e.printStackTrace();
         }
         return con; // 按方法要求返回一个Connection对象
-    }
-
-    public static void main(String[] args) { // 主方法，测试连接
-        Conn c = new Conn(); // 创建本类对象
-        c.getConnection(); // 调用连接数据库的方法
     }
 }
