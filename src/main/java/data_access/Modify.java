@@ -3,24 +3,31 @@ package data_access;
 import data_object.Email;
 import data_object.User;
 
+import java.sql.Connection;
+
 /**
  * 数据层删除操作
  */
 public class Modify {
     /**
      * 修改用户名或密码
-     * @param user 旧的用户实例
-     * @param newUser 新的用户实例
+     * @param newUser 新的用户实例，必须有id属性
+     * @param coon 数据库连接实例
+     * @return 返回修改的数量
      */
-    public int modifyUser(User user,User newUser){
+    public int modifyUser(User newUser, Connection coon){
+        //假如newUser的属性不为空并且与user不相等，则修改为新值
 
         return 0;
     }
 
     /**
-     * 修改邮件信息
+     * 修改邮箱信息
+     * @param newEmail 新的邮箱实例
+     * @param coon 数据库连接实例
+     * @return 返回修改的数量
      */
-    public int modifyEmail(Email email,Email newEmail){
+    public int modifyEmail(Email newEmail,Connection coon){
         return 0;
     }
 }
