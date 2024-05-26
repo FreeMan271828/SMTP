@@ -26,8 +26,8 @@ public class Main {
         //表操作
         TableOpera.createUserTable(connection);
         TableOpera.createEmailTable(connection);
-        //一个线程
 
+        //一个线程
         //登录（获取身份信息User）
         User user = LogIn.LoginByEmail("1114509193@qq.com","271828",connection);
         //注册（添加身份信息）
