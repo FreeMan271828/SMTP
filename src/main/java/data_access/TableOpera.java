@@ -2,7 +2,7 @@ package data_access;
 
 import java.sql.*;
 
-public class TableOper {
+public class TableOpera {
     /**
      * 创建用户表
      */
@@ -12,8 +12,9 @@ public class TableOper {
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(255) NOT NULL," +
                 "phone VARCHAR(20)," +
-                "password VARCHAR(255)," +
-                "email VARCHAR(255));";
+                "email VARCHAR(255) NOT NULL," +
+                "password VARCHAR(255) NOT NULL," +
+                "authorizationCode VARCHAR(255) NOT NULL);";
         stmt.executeUpdate(sql);
         DatabaseMetaData dbMetaData = connection.getMetaData();
         ResultSet rs = dbMetaData.getTables(null, null, "user", null);
@@ -35,9 +36,9 @@ public class TableOper {
                 "id INT AUTO_INCREMENT PRIMARY KEY,"+
                 "senderId INT NOT NULL,"+
                 "receiverId INT,"+
-                "subject VARCHAR(255),"+
+                "subject VARCHAR(255) NOT NULL,"+
                 "content TEXT,"+
-                " tip VARCHAR(255));";
+                "tip VARCHAR(255));";
         stmt.executeUpdate(sql);
         DatabaseMetaData dbMetaData = connection.getMetaData();
         ResultSet rs = dbMetaData.getTables(null, null, "email", null);

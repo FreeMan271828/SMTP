@@ -1,12 +1,14 @@
 package data_object;
 
+import java.util.Properties;
+
 public class Email {
 
     private Integer id;
 
     private Integer senderId;
 
-    private Integer receiverId;
+    private String receiverAddress;
 
     private String subject;
 
@@ -30,12 +32,12 @@ public class Email {
         this.senderId = senderId;
     }
 
-    public Integer getReceiverId() {
-        return receiverId;
+    public String getReceiverAddress() {
+        return receiverAddress;
     }
 
-    public void setReceiverId(Integer receiverId) {
-        this.receiverId = receiverId;
+    public void setReceiverAddress(String receiverAddress) {
+        this.receiverAddress = receiverAddress;
     }
 
     public String getSubject() {

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$PROJECT_DIR$/src/main/java/data_access/TableOper.java" dialect="GenericSQL" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/89f60ea5-1ab3-466a-aa85-d0ab61e48f5b/console.sql" dialect="MySQL" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/89f60ea5-1ab3-466a-aa85-d0ab61e48f5b/console_1.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/data_access/TableOpera.java" dialect="GenericSQL" />
   </component>
 </project>
