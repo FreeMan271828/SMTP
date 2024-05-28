@@ -33,9 +33,7 @@ public class SendEmail {
         Transport.send(message);
         System.out.println("邮件已成功发送！");
     }
-
     /**
-     *
      * @param session 与服务器交互的会话
      * @param sender  发送方信息
      * @return

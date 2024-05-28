@@ -4,6 +4,8 @@ import data_object.Email;
 import data_object.User;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * 数据层添加类
