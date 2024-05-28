@@ -37,7 +37,7 @@ public class Main {
         email.setSubject("testLink");
         email.setContent("testInfo");
         email.setSenderId(user.getId());
-        email.setReceiverAddress("1114509193@qq.com");
+        email.setReceiverAddress("335508880@qq.com");
         SendEmail.sendEmail(email,user);
     }
 }

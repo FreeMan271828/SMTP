@@ -28,14 +28,24 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.47</version>
         </dependency>
+<<<<<<< Updated upstream
+=======
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+
+
+>>>>>>> Stashed changes
         <dependency>
             <groupId>dnsjava</groupId>
             <artifactId>dnsjava</artifactId>
-            <version>2.1.6</version> </dependency> <dependency>
+            <version>2.1.6</version>
+        </dependency>
+
+        <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
             <version>3.6</version>
         </dependency>
+
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
