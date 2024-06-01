@@ -10,9 +10,10 @@ import javax.mail.MessagingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, InterruptedException {
         String jsonString = JsonGet.get("Const.json");
         JSONObject jsonObject = JSON.parseObject(jsonString);
 
@@ -28,11 +29,24 @@ public class Main {
 
         //获取线程池
         ExecutorService executor =  MyThreadPool.getThreadPool();
+
+        //多线程测试时间
+        long startTime = System.currentTimeMillis();
+
         //进行多线程
-        for(int i=0;i<3;i++){
+        for(int i=0;i<4;i++){
             UserThread userThread = new UserThread();
             userThread.setConnection(connection);
             executor.execute(userThread);
         }
+        executor.shutdown();
+
+        //多线程测试时间
+        if (!executor.awaitTermination(1, TimeUnit.HOURS)) {
+            System.err.println("Not all tasks completed in time.");
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Multi-threaded execution time: " + (endTime - startTime) + " ms");
+
     }
 }
