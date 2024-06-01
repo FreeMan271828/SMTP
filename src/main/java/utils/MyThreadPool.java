@@ -1,43 +1,50 @@
 package utils;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+
 import java.util.concurrent.*;
+
 
 //单例模式
 public class MyThreadPool {
 
+    //获取线程池信息
+    static String data = JsonGet.get("Const.json");
+    static JSONObject jsonObject = JSON.parseObject(data);
+    static JSONObject threadPool = jsonObject.getJSONObject("ThreadPool");
+
+
     //构造唯一实例
+    private static volatile ThreadPoolExecutor instance;
+
+    //双重检查锁定
     public static ThreadPoolExecutor getThreadPool(){
-        return new ThreadPoolExecutor(
-                corePoolSize=8,
-                maxPoolSize=16,
-                keepAliveTime=1,
-                keepAliveTimeUnit=TimeUnit.SECONDS,
-                workQueue = new LinkedBlockingDeque<>(),
-                threadFactory = Executors.defaultThreadFactory()
-        );
+        // 第一次检查，如果实例不存在，则进入同步代码块
+        if(instance == null){
+            // 同步代码块，确保同一时间只有一个线程可以进入
+            synchronized (MyThreadPool.class){
+                // 第二次检查，确保在等待锁的时候没有其他线程创建实例
+                if(instance == null){
+                    // 初始化核心参数
+                    MyThreadPool.corePoolSize = (int) threadPool.get("corePoolSize");
+                    MyThreadPool.maxPoolSize = (int) threadPool.get("maxPoolSize");
+                    MyThreadPool.keepAliveTime = (int) threadPool.get("keepAliveTime");
+                    MyThreadPool.keepAliveTimeUnit = TimeUnit.valueOf(threadPool.getString("keepAliveTimeUnit"));
+
+                    // 初始化线程池相关配置
+                    BlockingQueue<Runnable> workQueue = new LinkedBlockingDeque<>();
+                    ThreadFactory threadFactory = Executors.defaultThreadFactory();
+                    RejectedExecutionHandler rejectedHandler = new ThreadPoolExecutor.DiscardPolicy();
+
+                    instance = new ThreadPoolExecutor(
+                            corePoolSize,maxPoolSize,keepAliveTime,keepAliveTimeUnit,
+                            workQueue,threadFactory,rejectedHandler);
+                }
+            }
+        }
+        return instance;
     }
-
-//    private MyThreadPool(int corePoolSize,
-//                         int maxPoolSize,
-//                         long keepAliveTime,
-//                         TimeUnit keepAliveTimeUnit) {
-//        // 检查参数是否合理
-//        if (corePoolSize < 0 || corePoolSize > maxPoolSize) {
-//            throw new IllegalArgumentException("核心线程不能大于最大线程数");
-//        }
-//        if (keepAliveTime < 0) {
-//            throw new IllegalArgumentException("");
-//        }
-//        //数据分配
-//        MyThreadPool.corePoolSize = corePoolSize;
-//        MyThreadPool.maxPoolSize = maxPoolSize;
-//        MyThreadPool.keepAliveTime = keepAliveTime;
-//        MyThreadPool.keepAliveTimeUnit = keepAliveTimeUnit;
-//        MyThreadPool.workQueue = new LinkedBlockingDeque<>();
-//        MyThreadPool.threadFactory = Executors.defaultThreadFactory();
-//        MyThreadPool.rejectedHandler = new java.util.concurrent.ThreadPoolExecutor.DiscardPolicy();
-//    }    // 私有化构造函数
-
 
     private static int corePoolSize;//核心线程数
     private static int maxPoolSize;//最大线程数
@@ -46,60 +53,4 @@ public class MyThreadPool {
     private static BlockingQueue<Runnable> workQueue;//任务队列。通过线程池的 execute() 方法提交的 Runnable 对象将存储在该参数中。
     private static ThreadFactory threadFactory;//线程工厂
     private static RejectedExecutionHandler rejectedHandler;//阻塞队列，当队列阻塞时的方法
-
-    public static int getCorePoolSize() {
-        return corePoolSize;
-    }
-
-    public static void setCorePoolSize(int corePoolSize) {
-        MyThreadPool.corePoolSize = corePoolSize;
-    }
-
-    public static int getMaxPoolSize() {
-        return maxPoolSize;
-    }
-
-    public static void setMaxPoolSize(int maxPoolSize) {
-        MyThreadPool.maxPoolSize = maxPoolSize;
-    }
-
-    public static long getKeepAliveTime() {
-        return keepAliveTime;
-    }
-
-    public static void setKeepAliveTime(long keepAliveTime) {
-        MyThreadPool.keepAliveTime = keepAliveTime;
-    }
-
-    public static TimeUnit getKeepAliveTimeUnit() {
-        return keepAliveTimeUnit;
-    }
-
-    public static void setKeepAliveTimeUnit(TimeUnit keepAliveTimeUnit) {
-        MyThreadPool.keepAliveTimeUnit = keepAliveTimeUnit;
-    }
-
-    public static BlockingQueue<Runnable> getWorkQueue() {
-        return workQueue;
-    }
-
-    public static void setWorkQueue(BlockingQueue<Runnable> workQueue) {
-        MyThreadPool.workQueue = workQueue;
-    }
-
-    public static ThreadFactory getThreadFactory() {
-        return threadFactory;
-    }
-
-    public static void setThreadFactory(ThreadFactory threadFactory) {
-        MyThreadPool.threadFactory = threadFactory;
-    }
-
-    public static RejectedExecutionHandler getRejectedHandler() {
-        return rejectedHandler;
-    }
-
-    public static void setRejectedHandler(RejectedExecutionHandler rejectedHandler) {
-        MyThreadPool.rejectedHandler = rejectedHandler;
-    }
 }
