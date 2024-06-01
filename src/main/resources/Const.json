@@ -6,12 +6,8 @@
         "password": "FREEDOMman0807"
     },
     "ThreadPool": {
-        "corePoolSize" :
-        "maxPoolSize":
-        "keepAliveTime":
-        keepAliveTimeUnit,
-        workQueue,
-        ThreadFactory threadFactory,
-        RejectedExecutionHandler rejectedHandler
+        "corePoolSize": 4,
+        "maxPoolSize": 8,
+        "keepAliveTime": 1
     }
 }
