@@ -9,7 +9,7 @@ import javax.mail.internet.MimeMessage;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class SendEmail {
+public class SendEmailService {
 
     /**
      * @param email  里面包含了receiverAddress
@@ -19,6 +19,10 @@ public class SendEmail {
      */
     public static void sendEmail(Email email, User sender) throws SQLException, MessagingException {
 
+        if(email.getReceiverAddress().isBlank()||
+            email.getSubject().isBlank()) {
+            throw new MessagingException("邮件信息不全");
+        }
         // 设置邮件服务器的属性
         Properties props = getProperties();
         // 创建会话对象
@@ -33,6 +37,7 @@ public class SendEmail {
         Transport.send(message);
         System.out.println("邮件已成功发送！");
     }
+
     /**
      * @param session 与服务器交互的会话
      * @param sender  发送方信息
