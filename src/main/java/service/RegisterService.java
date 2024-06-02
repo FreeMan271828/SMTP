@@ -7,13 +7,13 @@ import data_object.User;
 import java.sql.Connection;
 import java.util.concurrent.Callable;
 
-public class RegisterTask implements Callable<User> {
+public class RegisterService implements Callable<User> {
 
     //要求必须存在name,email,pwd,authenticateCode
     private User user;
     private Connection connection;
 
-    public RegisterTask(User user, Connection connection) {
+    public RegisterService(User user, Connection connection) {
         this.user = user;
         this.connection = connection;
     }
