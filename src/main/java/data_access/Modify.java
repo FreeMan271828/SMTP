@@ -23,6 +23,8 @@ public class Modify {
 
     /**
      * 修改邮箱信息
+     * 假如newEmail的属性不为空并且与email不相等，则修改为新值
+     * 假设email的id不会变
      * @param newEmail 新的邮箱实例
      * @param coon 数据库连接实例
      * @return 返回修改的数量

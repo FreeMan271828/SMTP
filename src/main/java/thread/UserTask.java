@@ -22,7 +22,7 @@ public class UserTask implements Runnable{
         LoginService loginService = new LoginService(loginUser,connection);
         try {
             //该用户进行登录，此方法为同步
-            User user = loginService.call();
+            User user = loginService.login();
             //创建该用户的发送邮件任务
 
             //发送邮件（传送Email）

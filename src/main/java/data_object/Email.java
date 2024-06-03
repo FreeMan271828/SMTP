@@ -4,9 +4,9 @@ import java.util.Properties;
 
 public class Email {
 
-    private Integer id;
+    private String id;
 
-    private Integer senderId;
+    private String senderId;
 
     private String receiverAddress;
 
@@ -16,19 +16,19 @@ public class Email {
 
     private String tip;
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Integer getSenderId() {
+    public String getSenderId() {
         return senderId;
     }
 
-    public void setSenderId(Integer senderId) {
+    public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
 

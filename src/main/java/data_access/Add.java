@@ -27,8 +27,10 @@ public class Add {
             throw new Exception("用户信息不全");
         }
         Statement stmt = coon.createStatement();
-        String sql = "INSERT INTO user(name, phone, email, password, authorizationCode)" +
-                "VALUES('" + user.getName() + "', '" +
+        String sql = "INSERT INTO user(id,name, phone, email, password, authorizationCode)" +
+                "VALUES('" +
+                user.getId()+"','" +
+                user.getName() + "', '" +
                 user.getPhone() + "', '" +
                 user.getEmail() + "', '" +
                 user.getPassword() + "', '" +
@@ -50,12 +52,15 @@ public class Add {
             throw new Exception("邮件信息不全");
         }
         Statement stmt = coon.createStatement();
-        String sql = "INSERT INTO email(senderId,receiverAddress,subject,content,tip)" +
-                "VALUES('" + email.getSenderId() + "', '" +
+        String sql = "INSERT INTO email(id,senderId,receiverAddress,subject,content,tip)" +
+                "VALUES('" +
+                email.getId() + "','" +
+                email.getSenderId() + "', '" +
                 email.getReceiverAddress() + "', '" +
                 email.getSubject() + "', '" +
                 email.getContent() + "', '" +
                 email.getTip() + "')";
+        System.out.println(sql);
         int rowsAffected = stmt.executeUpdate(sql);
         return (rowsAffected > 0);
     }

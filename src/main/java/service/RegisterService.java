@@ -3,17 +3,19 @@ package service;
 import data_access.Add;
 import data_access.Get;
 import data_object.User;
+import utils.MyUuid;
 
 import java.sql.Connection;
 import java.util.concurrent.Callable;
 
-public class RegisterService implements Callable<User> {
+public class RegisterService {
 
     //要求必须存在name,email,pwd,authenticateCode
     private User user;
     private Connection connection;
 
     public RegisterService(User user, Connection connection) {
+        user.setId(MyUuid.getUuid());
         this.user = user;
         this.connection = connection;
     }
@@ -23,8 +25,7 @@ public class RegisterService implements Callable<User> {
      * @return 返回完整User对象
      * @throws Exception 用户信息不全
      */
-    @Override
-    public User call() throws Exception {
+    public User register() throws Exception {
         if(user.getEmail().isBlank()||
                 user.getPassword().isBlank()||
                 user.getAuthorizationCode().isBlank()||

@@ -1,5 +1,6 @@
 package data_access;
 
+import data_object.Email;
 import data_object.User;
 
 import java.sql.Connection;
@@ -24,8 +25,18 @@ public class Get {
      */
     public static User getUserById(String id,Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
-        String sql = "select * from user where id="+id;
+        String sql = "select * from user where id=+'" +id+"'";
         return  getUserBySql(stmt,sql).getFirst();
+    }
+
+    /**
+     * 根据Id获取Email
+     */
+    public static Email getEmailById(String id,Connection coon) throws SQLException {
+        Statement stmt =  coon.createStatement();
+        String sql = "select * from email where id=+'" +id+"'";
+        System.out.println(sql);
+        return  getEmailBySql(stmt,sql).getFirst();
     }
 
     /**
@@ -47,7 +58,7 @@ public class Get {
             users = new ArrayList<>();
             if (rs.next()) {
                 User user = new User();
-                user.setId(rs.getInt("id"));
+                user.setId(rs.getString("id"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
                 user.setPhone(rs.getString("phone"));
@@ -57,5 +68,26 @@ public class Get {
             }
         }
         return users;
+    }
+
+    /**
+     * 基本方法
+     * 根据sql查询语句返回对应的Email
+     */
+    public static List<Email> getEmailBySql(Statement stmt, String sql) throws SQLException {
+        List<Email> emails;
+        try (ResultSet rs = stmt.executeQuery(sql)) {
+            emails = new ArrayList<>();
+            if (rs.next()) {
+                Email email = new Email();
+                email.setId(rs.getString("id"));
+                email.setReceiverAddress(rs.getString("receiverAddress"));
+                email.setSubject(rs.getString("subject"));
+                email.setTip(rs.getString("tip"));
+                email.setContent(rs.getString("content"));
+                emails.add(email);
+            }
+        }
+        return emails;
     }
 }

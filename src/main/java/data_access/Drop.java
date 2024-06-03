@@ -34,7 +34,7 @@ public class Drop {
             }else{
                 String sql = "delete from user where id = ?";
                 stmt= coon.prepareStatement(sql);
-                stmt.setInt(1,user.getId());
+                stmt.setString(1,user.getId());
                 result = stmt.executeQuery();
                 while(result.next()){
                     count++;
@@ -79,7 +79,7 @@ public class Drop {
             }else{
                 String sql = "delete from email where id = ?";
                 stmt= coon.prepareStatement(sql);
-                stmt.setInt(1,email.getId());
+                stmt.setString(1,email.getId());
                 result = stmt.executeQuery();
                 while(result.next()){
                     count++;
