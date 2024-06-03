@@ -1,7 +1,10 @@
 package service;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import data_object.Email;
 import data_object.User;
+import utils.JsonGet;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -11,6 +14,10 @@ import java.util.Properties;
 
 public class SendEmailService {
 
+    static String data = JsonGet.get("Const.json");
+    static JSONObject jsonObject = JSON.parseObject(data);
+    static JSONObject SmtpProps = jsonObject.getJSONObject("SmtpProps");
+
     /**
      * @param email  里面包含了receiverAddress
      * @param sender 为了service与dao的分离，在此传输sender
@@ -18,6 +25,7 @@ public class SendEmailService {
      * @throws MessagingException
      */
     public static void sendEmail(Email email, User sender) throws SQLException, MessagingException {
+
 
         if(email.getReceiverAddress().isBlank()||
             email.getSubject().isBlank()) {
@@ -54,13 +62,13 @@ public class SendEmailService {
 
     private static Properties getProperties() {
         Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.qq.com"); // 指定SMTP服务器
-        props.put("mail.smtp.port", "465"); // QQ邮箱的SMTP端口
-        props.put("mail.smtp.auth", "true"); // 启用认证
-        props.put("mail.smtp.ssl.enable", "true"); // 使用SSL加密连接
-        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.socketFactory.fallback", "false");
-        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.host", SmtpProps.get("mail.smtp.host")); // 指定SMTP服务器
+        props.put("mail.smtp.port", SmtpProps.get("mail.smtp.port")); // QQ邮箱的SMTP端口
+        props.put("mail.smtp.auth", SmtpProps.get("mail.smtp.auth")); // 启用认证
+        props.put("mail.smtp.ssl.enable", SmtpProps.get("mail.smtp.ssl.enable")); // 使用SSL加密连接
+        props.put("mail.smtp.socketFactory.class", SmtpProps.get("mail.smtp.socketFactory.class"));
+        props.put("mail.smtp.socketFactory.fallback", SmtpProps.get("mail.smtp.socketFactory.fallback"));
+        props.put("mail.smtp.socketFactory.port", SmtpProps.get("mail.smtp.socketFactory.port"));
         return props;
     }
 }

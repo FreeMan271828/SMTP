@@ -34,7 +34,7 @@ public class Main {
 
         long startTime = System.currentTimeMillis();
         //进行多线程
-        for(int i=0;i<4;i++){
+        for(int i=0;i<1;i++){
             UserTask userTask = new UserTask();
             userTask.setConnection(connection);
             executor.execute(userTask);

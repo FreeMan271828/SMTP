@@ -10,5 +10,14 @@
         "maxPoolSize": 16,
         "keepAliveTime": 1,
         "keepAliveTimeUnit":"SECONDS"
+    },
+    "SmtpProps": {
+        "mail.smtp.host": "smtp.qq.com",
+        "mail.smtp.port": "465",
+        "mail.smtp.auth": "true",
+        "mail.smtp.ssl.enable": "true",
+        "mail.smtp.socketFactory.class": "javax.net.ssl.SSLSocketFactory",
+        "mail.smtp.socketFactory.fallback": "false",
+        "mail.smtp.socketFactory.port": "465"
     }
 }

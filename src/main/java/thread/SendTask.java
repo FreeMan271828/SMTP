@@ -10,9 +10,6 @@ public class SendTask {
     //要求必须存在senderId,recceiverAddress,subject
     private Email email;
 
-
-
-
     public Collection getCollection() {
         return collection;
     }
