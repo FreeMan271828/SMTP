@@ -6,7 +6,6 @@ import data_object.User;
 import utils.MyUuid;
 
 import java.sql.Connection;
-import java.util.concurrent.Callable;
 
 public class RegisterService {
 

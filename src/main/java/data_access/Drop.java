@@ -21,28 +21,24 @@ public class Drop {
         PreparedStatement stmt = null;
         ResultSet result = null;
         try {
-            if(String.valueOf(user.getId()).equals("")){
-                String sql = "delete from user where name = ? and password = ?";
+            String sql;
+            if(String.valueOf(user.getId()).isEmpty()){
+                sql = "delete from user where name = ? and password = ?";
                 stmt= coon.prepareStatement(sql);
                 stmt.setString(1,user.getName());
                 stmt.setString(2,user.getPassword());
-                result = stmt.executeQuery();
-                while(result.next()){
-                    count++;
-                }
-                return count;
             }else{
-                String sql = "delete from user where id = ?";
+                sql = "delete from user where id = ?";
                 stmt= coon.prepareStatement(sql);
                 stmt.setString(1,user.getId());
-                result = stmt.executeQuery();
-                while(result.next()){
-                    count++;
-                }
-                return count;
             }
+            result = stmt.executeQuery();
+            while(result.next()){
+                count++;
+            }
+            return count;
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
         finally {
             if(stmt!=null){
@@ -66,28 +62,24 @@ public class Drop {
         PreparedStatement stmt = null;
         ResultSet result = null;
         try {
-            if(String.valueOf(email.getId()).equals("")){
-                String sql = "delete from email where subject = ? and content = ?";
+            String sql;
+            if(String.valueOf(email.getId()).isEmpty()){
+                sql = "delete from email where subject = ? and content = ?";
                 stmt= coon.prepareStatement(sql);
                 stmt.setString(1,email.getSubject());
                 stmt.setString(2,email.getContent());
-                result = stmt.executeQuery();
-                while(result.next()){
-                    count++;
-                }
-                return count;
             }else{
-                String sql = "delete from email where id = ?";
+                sql = "delete from email where id = ?";
                 stmt= coon.prepareStatement(sql);
                 stmt.setString(1,email.getId());
-                result = stmt.executeQuery();
-                while(result.next()){
-                    count++;
-                }
-                return count;
             }
+            result = stmt.executeQuery();
+            while(result.next()){
+                count++;
+            }
+            return count;
         } catch (SQLException e) {
-            e.printStackTrace();
+            e.fillInStackTrace();
         }
         finally {
             if(stmt!=null){

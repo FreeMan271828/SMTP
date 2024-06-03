@@ -1,7 +1,5 @@
 package data_object;
 
-import java.util.Properties;
-
 public class Email {
 
     private String id;

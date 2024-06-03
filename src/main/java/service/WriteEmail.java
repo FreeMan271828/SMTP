@@ -12,7 +12,7 @@ public class WriteEmail {
 
     private final User sender;
     private final Connection connection;
-    private Email email;
+    private final Email email;
 
     public WriteEmail(User sender, Email email, Connection connection) {
         this.sender = sender;

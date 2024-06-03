@@ -2,7 +2,6 @@ package service;
 
 import data_access.Get;
 import data_object.User;
-import utils.MyUuid;
 
 import java.sql.Connection;
 

@@ -4,7 +4,6 @@ import data_object.Email;
 import data_object.User;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 /**
@@ -61,7 +60,8 @@ public class Add {
                 email.getContent() + "', '" +
                 email.getTip() + "')";
         System.out.println(sql);
-        int rowsAffected = stmt.executeUpdate(sql);
+        int rowsAffected;
+        rowsAffected = stmt.executeUpdate(sql);
         return (rowsAffected > 0);
     }
 }

@@ -21,8 +21,6 @@ public class SendEmailService {
     /**
      * @param email  里面包含了receiverAddress
      * @param sender 为了service与dao的分离，在此传输sender
-     * @throws SQLException
-     * @throws MessagingException
      */
     public static void sendEmail(Email email, User sender) throws SQLException, MessagingException {
 
@@ -49,7 +47,6 @@ public class SendEmailService {
     /**
      * @param session 与服务器交互的会话
      * @param sender  发送方信息
-     * @return
      */
     public static MimeMessage createMail(Session session, Email email, User sender) throws MessagingException {
         MimeMessage message = new MimeMessage(session);

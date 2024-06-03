@@ -17,8 +17,7 @@ public class JsonGet {
                 throw new IllegalArgumentException(name+" not found");
             }
             Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
-            String jsonText = scanner.hasNext() ? scanner.next() : "";
-            return jsonText;
+            return scanner.hasNext() ? scanner.next() : "";
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

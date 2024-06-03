@@ -9,8 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class Get {
+
+    private static final Logger logger = Logger.getLogger(Get.class.getName());
     /**
      * 获取所有的角色
      */
@@ -52,10 +55,9 @@ public class Get {
      * 基本方法
      * 根据sql查询语句返回对应的User
      */
-    public static List<User> getUserBySql(Statement stmt, String sql) throws SQLException {
-        List<User> users;
+    public static List<User> getUserBySql(Statement stmt, String sql){
+        List<User> users = new ArrayList<>();
         try (ResultSet rs = stmt.executeQuery(sql)) {
-            users = new ArrayList<>();
             if (rs.next()) {
                 User user = new User();
                 user.setId(rs.getString("id"));
@@ -66,6 +68,9 @@ public class Get {
                 user.setPassword(rs.getString("password"));
                 users.add(user);
             }
+        }catch (Exception e){
+            logger.info("用户信息错误");
+            e.fillInStackTrace();
         }
         return users;
     }

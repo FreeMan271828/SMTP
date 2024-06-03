@@ -17,7 +17,7 @@ public class UserTask implements Runnable{
 
         User loginUser = new User();
         loginUser.setEmail("1114509193@qq.com");
-        loginUser.setPassword("271828");
+        loginUser.setPassword("123456");
         //创建该用户的登录任务
         LoginService loginService = new LoginService(loginUser,connection);
         try {
