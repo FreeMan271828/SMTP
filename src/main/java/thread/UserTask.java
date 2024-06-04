@@ -1,21 +1,12 @@
 package thread;
 
 import data_object.*;
-import service.LoginService;
-import service.RegisterService;
 import utils.MyLog;
 
 import java.sql.Connection;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 public class UserTask implements Runnable{
-
-    private Connection connection;
-
-    private final Scanner scanner = new Scanner(System.in);
-
-    private static final MyLog LOG = MyLog.getInstance();
 
     private User user = null;
 
@@ -26,61 +17,56 @@ public class UserTask implements Runnable{
     public void run() throws RuntimeException {
 
         while(true){
-            System.out.println("注册1 登录2 写邮件3 发邮件4 退出5");
+            System.out.println("注册1 登录2 写邮件3 发邮件4 查看邮件5 退出6");
             switch (scanner.nextInt()) {
                 //注册逻辑
                 case 1: {
-                    User user = new User();
-                    System.out.println("请输入姓名");
-                    user.setName(scanner.next());
-                    System.out.println("请输入邮箱");
-                    user.setEmail(scanner.next());
-                    System.out.println("请输入密码");
-                    user.setPassword(scanner.next());
-                    System.out.println("请输授权码");
-                    user.setAuthorizationCode(scanner.next());
-                    RegisterService registerService = new RegisterService(user, connection);
-                    try {
-                        registerService.register();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    RegisterTask.register(connection);
                     break;
                 }
                 //登录逻辑
-                case 2:
-                    if(isLogin) {
-                        LOG.info(user.getName()+"已登录");
+                case 2: {
+                    this.user=LoginTask.login(isLogin,user,connection);
+                    if(user!=null) { isLogin = true; }
+                    break;
+                }
+                //写邮件
+                case 3: {
+                    if (!isLogin) {
+                        LOG.info("请先登录");
                         break;
                     }
-                    User tempUser = new User();
-                    System.out.println("输入邮箱名");
-                    System.out.println("输入密码");
-                    tempUser.setEmail(scanner.next());
-                    tempUser.setPassword(scanner.next());
-                    LoginService loginService = new LoginService(tempUser, connection);
-                    try {
-                        user = loginService.login();
-                        this.isLogin = true;
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+                    break;
+                }
+                //发邮件
+                case 4: {
+                    if (!isLogin) {
+                        LOG.info("请先登录");
+                        break;
                     }
                     break;
-                //写邮件
-                case 3:
-                    if(!isLogin){
-
-                    }
+                }
+                //查看邮件
+                case 5:{
+                    ShowTask.show(isLogin,user,connection);
                     break;
-                case 4:
+                }
+                case 6: {
+                    isLogin = false;
+                    user = null;
                     break;
-                case 5:
-                    break;
+                }
                 default:
                     System.out.println("输入错误");
             }
         }
     }
+
+    private Connection connection;
+
+    private final Scanner scanner = new Scanner(System.in);
+
+    private static final MyLog LOG = MyLog.getInstance();
 
     public UserTask(){
         this.isLogin = false;

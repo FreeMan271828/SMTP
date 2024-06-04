@@ -7,14 +7,16 @@ import data_object.User;
 import utils.MyUuid;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
-public class WriteEmail {
+public class EmailService {
 
     private final User sender;
     private final Connection connection;
     private final Email email;
 
-    public WriteEmail(User sender, Email email, Connection connection) {
+    public EmailService(User sender, Email email, Connection connection) {
         this.sender = sender;
         this.email = email;
         this.connection = connection;
@@ -53,7 +55,7 @@ public class WriteEmail {
             if(!email.getContent().isBlank()&&!email.getContent().isEmpty()){
                 tempMail.setContent(email.getContent());
             }
-
+            //TODO 进行修改操作
         }
 
         return email;
