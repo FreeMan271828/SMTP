@@ -1,5 +1,7 @@
 package data_object;
 
+import java.util.Date;
+
 /**
  * User
  */
@@ -9,13 +11,13 @@ public class User {
 
     private String name;
 
-    private String phone;
-
     private String email;
 
     private String password;
 
     public String authorizationCode;
+
+    public Date gmtCreated;
 
     public String getId() {
         return id;
@@ -31,14 +33,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {

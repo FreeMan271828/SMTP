@@ -2,6 +2,7 @@ package data_access;
 
 import data_object.Email;
 import data_object.User;
+import utils.MyDate;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -26,14 +27,17 @@ public class Add {
             throw new Exception("用户信息不全");
         }
         Statement stmt = coon.createStatement();
-        String sql = "INSERT INTO user(id,name, phone, email, password, authorizationCode)" +
+        String sql = "INSERT INTO user(id,name, email, password, authorization_code,gmt_created,gmt_modified)" +
                 "VALUES('" +
                 user.getId()+"','" +
                 user.getName() + "', '" +
-                user.getPhone() + "', '" +
                 user.getEmail() + "', '" +
                 user.getPassword() + "', '" +
-                user.getAuthorizationCode() + "')";
+                user.getAuthorizationCode() + "','" +
+                MyDate.getNowInDateTime().toString()+ "', '" +
+                MyDate.getNowInDateTime().toString()+
+                "')";
+        System.out.println(sql);
         int rowsAffected = stmt.executeUpdate(sql);
         return (rowsAffected > 0);
     }
@@ -51,14 +55,18 @@ public class Add {
             throw new Exception("邮件信息不全");
         }
         Statement stmt = coon.createStatement();
-        String sql = "INSERT INTO email(id,senderId,receiverAddress,subject,content,tip)" +
+        String sql = "INSERT INTO email(id,sender_Id,receiver_address,subject,content,tip.gmt_created,gmt_modified)" +
                 "VALUES('" +
                 email.getId() + "','" +
                 email.getSenderId() + "', '" +
                 email.getReceiverAddress() + "', '" +
                 email.getSubject() + "', '" +
                 email.getContent() + "', '" +
-                email.getTip() + "')";
+                email.getTip() + "', '" +
+                MyDate.getNowInDateTime()+ "', '" +
+                MyDate.getNowInDateTime()+
+                "')";
+
         System.out.println(sql);
         int rowsAffected;
         rowsAffected = stmt.executeUpdate(sql);

@@ -2,6 +2,7 @@ package data_access;
 
 import data_object.Email;
 import data_object.User;
+import utils.MyLog;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,11 +10,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Get {
 
-    private static final Logger logger = Logger.getLogger(Get.class.getName());
+    //日志类注入
+    private static MyLog LOG = MyLog.getInstance();
+
     /**
      * 获取所有的角色
      */
@@ -63,13 +65,12 @@ public class Get {
                 user.setId(rs.getString("id"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
-                user.setPhone(rs.getString("phone"));
-                user.setAuthorizationCode(rs.getString("authorizationCode"));
+                user.setAuthorizationCode(rs.getString("authorization_code"));
                 user.setPassword(rs.getString("password"));
                 users.add(user);
             }
         }catch (Exception e){
-            logger.info("用户信息错误");
+            LOG.info("getUserBySql Exception: " + e.getMessage());
             e.fillInStackTrace();
         }
         return users;
@@ -86,7 +87,7 @@ public class Get {
             if (rs.next()) {
                 Email email = new Email();
                 email.setId(rs.getString("id"));
-                email.setReceiverAddress(rs.getString("receiverAddress"));
+                email.setReceiverAddress(rs.getString("receiver_address"));
                 email.setSubject(rs.getString("subject"));
                 email.setTip(rs.getString("tip"));
                 email.setContent(rs.getString("content"));
