@@ -17,7 +17,9 @@ public class User {
 
     public String authorizationCode;
 
-    public Date gmtCreated;
+    public String gmtCreated;
+
+    public String gmtModified;
 
     public String getId() {
         return id;
@@ -55,5 +57,21 @@ public class User {
 
     public void setAuthorizationCode(String authorizationCode) {
         this.authorizationCode = authorizationCode;
+    }
+
+    public String getGmtCreated() {
+        return gmtCreated;
+    }
+
+    public void setGmtCreated(String gmtCreated) {
+        this.gmtCreated = gmtCreated;
+    }
+
+    public String getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(String gmtModified) {
+        this.gmtModified = gmtModified;
     }
 }

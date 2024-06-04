@@ -2,6 +2,7 @@ package thread;
 
 import data_object.Email;
 import data_object.User;
+import service.EmailService;
 import service.UserService;
 import utils.MyLog;
 
@@ -21,16 +22,16 @@ public class ShowTask {
         UserService userService = new UserService(user, connection);
         try {
             List<Email> emails = userService.getEmails();
-            System.out.println("id\tsender\tsubject\t");
-            emails.forEach(email ->{
+            for(int i = 0;i < emails.size();i++){
+                Email email = emails.get(i);
                 try {
-                    System.out.println(email.getId()+"\t"
-                            +userService.getUserById(email.getSenderId())+"\t"
-                            +email.getSubject());
+                    System.out.println("第"+i+1+"封邮件如下");
+                    EmailService emailService = new EmailService(email,connection);
+                    emailService.print(user);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-            });
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

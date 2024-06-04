@@ -12,17 +12,27 @@ import java.util.List;
 
 public class EmailService {
 
-    private final User sender;
     private final Connection connection;
     private final Email email;
 
-    public EmailService(User sender, Email email, Connection connection) {
-        this.sender = sender;
+    public EmailService(Email email, Connection connection) {
         this.email = email;
         this.connection = connection;
     }
 
-    public Email write() throws Exception {
+    public void print(User user) throws SQLException {
+        UserService userService = new UserService(user,connection);
+        System.out.println("邮件id:     "+email.getId());
+        System.out.println("发送人Id:   "+email.getSenderId() );
+        System.out.println("发送人姓名:  "+userService.getUserById());
+        System.out.println("接收方地址:  "+email.getReceiverAddress());
+        System.out.println("主题:       "+email.getSubject());
+        System.out.println("内容:       "+email.getContent());
+        System.out.println("备注:       "+email.getTip());
+        System.out.println("最后修改时间: "+email.getGmtModified()+'\n');
+    }
+
+    public Email write(User sender) throws Exception {
         //如果邮件为空，则需要新建一封新邮件
         if(email.getId()==null||email.getId().isBlank()||email.getId().isEmpty()){
             Email tempEmail = new Email();

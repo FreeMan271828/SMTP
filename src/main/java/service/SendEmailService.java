@@ -24,7 +24,6 @@ public class SendEmailService {
      */
     public static void sendEmail(Email email, User sender) throws SQLException, MessagingException {
 
-
         if(email.getReceiverAddress().isBlank()||
             email.getSubject().isBlank()) {
             throw new MessagingException("邮件信息不全");

@@ -14,6 +14,10 @@ public class Email {
 
     private String tip;
 
+    private String gmtCreated;
+
+    private String gmtModified;
+
     public String getId() {
         return id;
     }
@@ -62,4 +66,19 @@ public class Email {
         this.tip = tip;
     }
 
+    public String getGmtCreated() {
+        return gmtCreated;
+    }
+
+    public void setGmtCreated(String gmtCreated) {
+        this.gmtCreated = gmtCreated;
+    }
+
+    public String getGmtModified() {
+        return gmtModified;
+    }
+
+    public void setGmtModified(String gmtModified) {
+        this.gmtModified = gmtModified;
+    }
 }

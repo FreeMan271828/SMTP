@@ -19,8 +19,8 @@ public class UserService {
         this.connection = connection;
     }
 
-    public User getUserById(String id) throws SQLException {
-        return Get.getUserById(id,connection);
+    public User getUserById() throws SQLException {
+        return Get.getUserById(user.getId(),connection);
     }
 
     public List<Email> getEmails() throws SQLException {

@@ -1,9 +1,15 @@
 package thread;
 
+import data_access.Get;
 import data_object.*;
+import service.EmailService;
+import service.SendEmailService;
+import service.UserService;
 import utils.MyLog;
 
+import javax.mail.MessagingException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserTask implements Runnable{
@@ -17,7 +23,7 @@ public class UserTask implements Runnable{
     public void run() throws RuntimeException {
 
         while(true){
-            System.out.println("注册1 登录2 写邮件3 发邮件4 查看邮件5 退出6");
+            LOG.info("注册1 登录2 写邮件3 发邮件4 查看邮件5 退出6");
             switch (scanner.nextInt()) {
                 //注册逻辑
                 case 1: {
@@ -32,18 +38,27 @@ public class UserTask implements Runnable{
                 }
                 //写邮件
                 case 3: {
-                    if (!isLogin) {
-                        LOG.info("请先登录");
-                        break;
+                    if (!isLogin) { LOG.info("请先登录"); break; }
+                    LOG.info("请输入要修改的邮件Id");
+                    try {
+                        Email email = Get.getEmailById(scanner.next(),connection);
+                        if (email != null) {
+                            LOG.info("找不到此邮件,将为你创建新邮件");
+                            break;
+                        }else{
+                            LOG.info("以下是该邮件的详细信息");
+                            EmailService emailService = new EmailService(email,connection);
+                            emailService.print(user);
+                        }
+
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
                     }
                     break;
                 }
                 //发邮件
                 case 4: {
-                    if (!isLogin) {
-                        LOG.info("请先登录");
-                        break;
-                    }
+                    SendTask.send(isLogin,connection);
                     break;
                 }
                 //查看邮件
@@ -51,13 +66,8 @@ public class UserTask implements Runnable{
                     ShowTask.show(isLogin,user,connection);
                     break;
                 }
-                case 6: {
-                    isLogin = false;
-                    user = null;
-                    break;
-                }
-                default:
-                    System.out.println("输入错误");
+                case 6: {isLogin = false;user = null;break;}
+                default:{LOG.error("输入错误");}
             }
         }
     }
