@@ -14,7 +14,7 @@ import java.util.List;
 public class Get {
 
     //日志类注入
-    private static MyLog LOG = MyLog.getInstance();
+    private static final MyLog LOG = MyLog.getInstance();
 
     /**
      * 获取所有的角色
@@ -25,8 +25,18 @@ public class Get {
         return getUserBySql(stmt,sql);
     }
 
+    public static List<Email>getUserEmails(User user,Connection coon) throws SQLException {
+        if (user.getId().isEmpty()||user.getId().isBlank()){
+            LOG.error("用户id为空");
+            return null;
+        }
+        Statement statement = coon.createStatement();
+        String sql = "select * from email where sender_id= '" + user.getId()+"'";
+        return getEmailBySql(statement,sql);
+    }
+
     /**
-     * 根据Id获取User
+     * 根据 Id获取User
      */
     public static User getUserById(String id,Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
@@ -35,21 +45,20 @@ public class Get {
     }
 
     /**
-     * 根据Id获取Email
+     * 根据email Id获取Email
      */
     public static Email getEmailById(String id,Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
         String sql = "select * from email where id=+'" +id+"'";
-        System.out.println(sql);
         return  getEmailBySql(stmt,sql).getFirst();
     }
 
     /**
-     * 根据其余信息获取User
+     * 根据邮箱密码获取User
      */
-    public static User getUserByEmail(String email,String password,Connection coon) throws SQLException {
+    public static User getUserByAddress(String address, String password, Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
-        String sql = "select * from user where email='" + email + "' and password='" + password + "';";
+        String sql = "select * from user where email='" + address + "' and password='" + password + "';";
         return getUserBySql(stmt,sql).getFirst();
     }
 
@@ -87,6 +96,7 @@ public class Get {
             if (rs.next()) {
                 Email email = new Email();
                 email.setId(rs.getString("id"));
+                email.setSenderId(rs.getString("sender_id"));
                 email.setReceiverAddress(rs.getString("receiver_address"));
                 email.setSubject(rs.getString("subject"));
                 email.setTip(rs.getString("tip"));

@@ -23,5 +23,9 @@ public class MyLog {
         logger.info(message);
     }
 
+    public void error(String message) {
+        logger.error(message);
+    }
+
     // 其他方法，例如 debug、warn、error 等
 }

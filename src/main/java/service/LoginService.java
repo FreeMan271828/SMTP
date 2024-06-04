@@ -27,6 +27,6 @@ public class LoginService{
             throw new Exception("用户登录信息不全");
         }
         // 登录代码...
-        return Get.getUserByEmail(user.getEmail(),user.getPassword(),conn);
+        return Get.getUserByAddress(user.getEmail(),user.getPassword(),conn);
     }
 }

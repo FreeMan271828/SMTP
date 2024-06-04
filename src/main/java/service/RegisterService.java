@@ -32,7 +32,7 @@ public class RegisterService {
             throw new Exception("用户登录信息不全");
         }
         Add.addUser(user,connection);
-        return Get.getUserByEmail(user.getEmail(),user.getPassword(),connection);
+        return Get.getUserByAddress(user.getEmail(),user.getPassword(),connection);
     }
 
     public User getUser() {
