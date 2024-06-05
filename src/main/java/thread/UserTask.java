@@ -42,16 +42,26 @@ public class UserTask implements Runnable{
                     LOG.info("请输入要修改的邮件Id");
                     try {
                         Email email = Get.getEmailById(scanner.next(),connection);
-                        if (email != null) {
+                        if (email == null) {
                             LOG.info("找不到此邮件,将为你创建新邮件");
+                            email = new Email();
+                            //填入邮件信息
+                            EmailService.input(email, connection);
+                            //写邮件
+                            EmailService.write(email,user,connection);
                             break;
                         }else{
                             LOG.info("以下是该邮件的详细信息");
-                            EmailService emailService = new EmailService(email,connection);
-                            emailService.print(user);
+                            EmailService.print(email,user,connection);
+                            //填入邮件信息
+                            EmailService.input(email, connection);
+                            //写邮件
+                            EmailService.write(email,user,connection);
                         }
 
                     } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;

@@ -17,7 +17,7 @@ public class LoginService{
     }
 
     /**
-     * 用户登录多线程接口
+     * 用户登录
      * @return 返回完整User对象
      */
     public User login() throws Exception{

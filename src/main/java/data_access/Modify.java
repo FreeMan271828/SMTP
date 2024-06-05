@@ -2,8 +2,11 @@ package data_access;
 
 import data_object.Email;
 import data_object.User;
+import utils.MyDate;
 
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * 数据层删除操作
@@ -29,7 +32,17 @@ public class Modify {
      * @param coon 数据库连接实例
      * @return 返回修改的数量
      */
-    public int modifyEmail(Email newEmail,Connection coon){
-        return 0;
+    public static boolean modifyEmail(Email newEmail,Connection coon) throws SQLException {
+        Statement statement = coon.createStatement();
+        String sql =
+        "UPDATE email "+
+        "SET subject = '"+newEmail.getSubject()+"',"+
+        "receiver_address = '"+newEmail.getReceiverAddress()+"',"+
+        "content = '"+newEmail.getContent()+"',"+
+        "tip = '"+newEmail.getTip()+"',"+
+        "gmt_modified = '"+ MyDate.getNowInDateTime() +"' "+
+        "WHERE id = '"+newEmail.getId()+"';";
+        System.out.println(sql);
+        return statement.executeUpdate(sql)>0;
     }
 }

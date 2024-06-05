@@ -50,7 +50,11 @@ public class Get {
     public static Email getEmailById(String id,Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
         String sql = "select * from email where id=+'" +id+"'";
-        return  getEmailBySql(stmt,sql).getFirst();
+        List<Email>emails = getEmailBySql(stmt,sql);
+        if (emails.isEmpty()){
+            return null;
+        }
+        return emails.getFirst();
     }
 
     /**
@@ -59,7 +63,11 @@ public class Get {
     public static User getUserByAddress(String address, String password, Connection coon) throws SQLException {
         Statement stmt =  coon.createStatement();
         String sql = "select * from user where email='" + address + "' and password='" + password + "';";
-        return getUserBySql(stmt,sql).getFirst();
+        List<User>users = getUserBySql(stmt,sql);
+        if (users.isEmpty()){
+            return null;
+        }
+        return users.getFirst();
     }
 
     /**

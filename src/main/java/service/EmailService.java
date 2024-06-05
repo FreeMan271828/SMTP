@@ -2,6 +2,7 @@ package service;
 
 import data_access.Add;
 import data_access.Get;
+import data_access.Modify;
 import data_object.Email;
 import data_object.User;
 import utils.MyUuid;
@@ -9,18 +10,13 @@ import utils.MyUuid;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Scanner;
 
 public class EmailService {
 
-    private final Connection connection;
-    private final Email email;
+    private final static Scanner scanner = new Scanner(System.in);
 
-    public EmailService(Email email, Connection connection) {
-        this.email = email;
-        this.connection = connection;
-    }
-
-    public void print(User user) throws SQLException {
+    public static void print(Email email,User user,Connection connection) throws SQLException {
         UserService userService = new UserService(user,connection);
         System.out.println("邮件id:     "+email.getId());
         System.out.println("发送人Id:   "+email.getSenderId() );
@@ -32,7 +28,21 @@ public class EmailService {
         System.out.println("最后修改时间: "+email.getGmtModified()+'\n');
     }
 
-    public Email write(User sender) throws Exception {
+    public static Email input(Email email,Connection connection){
+        //发件方和最后修改时间自动填入
+        System.out.println("请输入邮件的接受地址");
+        email.setReceiverAddress(scanner.next());
+        System.out.println("请输入邮件主题");
+        email.setSubject(scanner.next());
+        System.out.println("请输入邮件内容");
+        email.setContent(scanner.next());
+        System.out.println("请输入备注");
+        email.setTip(scanner.next());
+        return email;
+    }
+
+
+    public static Email write(Email email,User sender,Connection connection) throws Exception {
         //如果邮件为空，则需要新建一封新邮件
         if(email.getId()==null||email.getId().isBlank()||email.getId().isEmpty()){
             Email tempEmail = new Email();
@@ -66,9 +76,12 @@ public class EmailService {
                 tempMail.setContent(email.getContent());
             }
             //TODO 进行修改操作
+            if(Modify.modifyEmail(email,connection)){ return Get.getEmailById(email.getId(),connection); }
+            else{
+                System.out.println("修改失败");
+                return null;
+            }
         }
-
-        return email;
     }
 
 }

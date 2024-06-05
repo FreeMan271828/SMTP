@@ -26,6 +26,10 @@ public class LoginTask {
         LoginService loginService = new LoginService(tempUser, connection);
         try {
             user = loginService.login();
+            if (user == null) {
+                LOG.info("登录信息有误");
+                return null;
+            }
             return user;
         } catch (Exception e) {
             throw new RuntimeException(e);
