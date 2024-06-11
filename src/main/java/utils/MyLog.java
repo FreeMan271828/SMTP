@@ -27,5 +27,5 @@ public class MyLog {
         logger.error(message);
     }
 
-    // 其他方法，例如 debug、warn、error 等
+    // 其他方法，例如 debug、warn 等
 }
