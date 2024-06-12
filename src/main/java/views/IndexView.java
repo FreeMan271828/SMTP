@@ -1,21 +1,24 @@
 package views;
 
+import data_object.User;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class IndexView extends JFrame implements ActionListener{
     private JPanel contentPane;
     private CardLayout cardLayout;
     private JPanel mainPanel;
-
-    public IndexView() {
+    private Connection connection;
+    public IndexView(User user, Connection connection) {
         super("SMTP简单邮箱发送-登录");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(750, 550);
         setLocationRelativeTo(null);
-
+        this.connection = connection;
         contentPane = new JPanel(new BorderLayout());
         setContentPane(contentPane);
 
@@ -41,8 +44,8 @@ public class IndexView extends JFrame implements ActionListener{
         contentPane.add(mainPanel, BorderLayout.CENTER);
 
         // 添加子面板
-        WritePanel writePanel = new WritePanel();
-        WatchPanel watchPanel = new WatchPanel();
+        WritePanel writePanel = new WritePanel(user,connection,this);
+        WatchPanel watchPanel = new WatchPanel(user,connection,this);
         mainPanel.add(writePanel, "writePanel");
         mainPanel.add(watchPanel, "watchPanel");
 
@@ -70,16 +73,7 @@ public class IndexView extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    IndexView frame = new IndexView();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+
     }
 
     @Override

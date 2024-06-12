@@ -1,16 +1,25 @@
 package views;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import data_access.Conn;
 import data_object.User;
+import service.LoginService;
+import utils.JsonGet;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+
 public class LoginView extends JFrame {
     int type;
     LoginView jk;
     public User user;
-    public LoginView(){
+    private Connection connection;
+    public LoginView(Connection connection){
+        this.connection = connection;
         jk = this;
         initView();
         initMember();
@@ -74,7 +83,12 @@ public class LoginView extends JFrame {
         zb.addActionListener(new ActionListener() {     //为注册按钮提供监听事件
             @Override
             public void actionPerformed(ActionEvent e) {
+                // 创建 RegisterView 对象，并将当前 LoginView 的 connection 对象传递给它
+                RegisterView registerView = new RegisterView(connection);
+                registerView.setVisible(true); // 显示注册界面
 
+                // 隐藏当前登录界面
+                dispose(); // 这会关闭当前窗口，并释放资源。如果你想之后再显示登录界面，可以使用 setVisible(false) 来隐藏窗口。
             }
         });
         // 在登录按钮的事件监听器中添加逻辑
@@ -83,6 +97,40 @@ public class LoginView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //判断是否全部输入了
                 if (areAllFieldsFilled()) {
+                    String name = xtext.getText();
+                    String email = ytext.getText();
+                    String password = mtext.getText();
+                    String authorizationCode = stext.getText();
+
+                    // 创建 User 对象
+                    User user = new User();
+                    user.setName(name);
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setAuthorizationCode(authorizationCode);
+                    try {
+                        // 使用 LoginService 进行登录验证
+                        LoginService loginService = new LoginService(user, connection);
+                        User loggedInUser = loginService.login();
+
+                        if (loggedInUser != null) {
+                            // 登录成功
+                            JOptionPane.showMessageDialog(null, "登录成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+                            // 跳转到主页面
+                            IndexView indexView = new IndexView(loggedInUser, connection);
+                            indexView.setVisible(true);
+
+                            // 关闭当前登录界面
+                            dispose();
+                        } else {
+                            // 登录失败
+                            JOptionPane.showMessageDialog(null, "登录失败，请检查用户名或密码！", "错误", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } catch (Exception ex) {
+                        // 处理登录过程中发生的异常
+                        JOptionPane.showMessageDialog(null, "登录出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                    }
 
                 }
 
@@ -107,6 +155,15 @@ public class LoginView extends JFrame {
 
 
     public static void main(String[] args) {
-        LoginView a = new LoginView();
+        String jsonString = JsonGet.get("Const.json");
+        JSONObject jsonObject = JSON.parseObject(jsonString);
+
+        //连接到数据库
+        JSONObject dbConnection = jsonObject.getJSONObject("DbConnection1");
+        String url1=dbConnection.getString("url");
+        String username1=dbConnection.getString("name");
+        String password1=dbConnection.getString("password");
+        Connection connection = Conn.getConnection(url1,username1,password1);
+        LoginView a = new LoginView(connection );
     }
 }

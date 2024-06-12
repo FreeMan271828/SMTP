@@ -1,10 +1,22 @@
 package views;
 
+import data_object.Email;
+import data_object.User;
+import service.EmailService;
+import service.SendEmailService;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
 
 public class WritePanel extends JPanel {
-    public WritePanel() {
+    private User user; // 当前登录的用户
+    private Connection connection;
+    public WritePanel(User user, Connection connection, IndexView indexView) {
+        this.user = user;
+        this.connection = connection;
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // 增加组件间距
@@ -62,5 +74,66 @@ public class WritePanel extends JPanel {
         gbc.gridx = 3;
         gbc.gridy = 4;
         add(sendButton, gbc);
+
+        // 保存按钮事件处理
+        saveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String subject = subjectField.getText();
+                String recipient = recipientField.getText();
+                String content = contentArea.getText();
+                String tip = ""; // 你需要添加获取备注信息的代码
+
+                // 创建 Email 对象
+                Email email = new Email();
+                email.setReceiverAddress(recipient);
+                email.setSubject(subject);
+                email.setContent(content);
+                email.setTip(tip);
+
+                try {
+                    // 使用 EmailService 保存邮件
+                    Email savedEmail = EmailService.write(email, user, connection);
+
+                    if (savedEmail != null) {
+                        // 保存成功
+                        JOptionPane.showMessageDialog(null, "邮件保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        // 保存失败
+                        JOptionPane.showMessageDialog(null, "邮件保存失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (Exception ex) {
+                    // 处理保存邮件过程中发生的异常
+                    JOptionPane.showMessageDialog(null, "保存邮件出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        // 发送按钮事件处理
+        sendButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String subject = subjectField.getText();
+                String recipient = recipientField.getText();
+                String content = contentArea.getText();
+
+                // 创建 Email 对象
+                Email email = new Email();
+                email.setReceiverAddress(recipient);
+                email.setSubject(subject);
+                email.setContent(content);
+
+                try {
+                    // 使用 SendEmailService 发送邮件
+                    SendEmailService.sendEmail(email, user);
+
+                    // 发送成功
+                    JOptionPane.showMessageDialog(null, "邮件发送成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception ex) {
+                    // 处理发送邮件过程中发生的异常
+                    JOptionPane.showMessageDialog(null, "发送邮件出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 }
