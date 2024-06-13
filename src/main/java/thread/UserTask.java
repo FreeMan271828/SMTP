@@ -22,6 +22,7 @@ public class UserTask implements Runnable{
     @Override
     public void run() throws RuntimeException {
 
+
         while(true){
             LOG.info("注册1 登录2 写邮件3 发邮件4 查看邮件5 退出6");
             switch (scanner.nextInt()) {
@@ -52,7 +53,7 @@ public class UserTask implements Runnable{
                             break;
                         }else{
                             LOG.info("以下是该邮件的详细信息");
-                            EmailService.print(email,user,connection);
+                            EmailService.print(email,user,connection,null);
                             //填入邮件信息
                             EmailService.input(email, connection);
                             //写邮件

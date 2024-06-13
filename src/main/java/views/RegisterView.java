@@ -1,6 +1,7 @@
 package views;
 
 import data_object.User;
+import service.RegisterService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,15 +9,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
 
 public class RegisterView extends JFrame {
     int type;
     RegisterView rv;
     public User user;
-    public RegisterView(){
+    private Connection connection;
+    public RegisterView(Connection connection){
         rv = this;
         initView();
         initMember();
+        this.connection = connection;
         setVisible(true);
     }
     private void initView(){
@@ -74,7 +78,44 @@ public class RegisterView extends JFrame {
         zb.addActionListener(new ActionListener() {     //为注册按钮提供监听事件
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (areAllFieldsFilled()) {
+                    String name = xtext.getText();
+                    String email = ytext.getText();
+                    String password = mtext.getText();
+                    String authorizationCode = stext.getText();
 
+                    // 创建 User 对象
+                    User user = new User();
+                    user.setName(name);
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setAuthorizationCode(authorizationCode);
+
+                    try {
+                        // 使用 RegisterService 进行注册
+                        RegisterService registerService = new RegisterService(user, connection);
+                        User registeredUser = registerService.register();
+
+                        if (registeredUser != null) {
+                            // 注册成功
+                            JOptionPane.showMessageDialog(null, "注册成功，请登录！", "提示", JOptionPane.INFORMATION_MESSAGE);
+
+                            // 返回登录界面
+                            LoginView loginView = new LoginView(connection);
+                            loginView.setVisible(true);
+
+                            // 关闭当前注册界面
+                            dispose();
+                        } else {
+                            // 注册失败 (理论上不会出现，因为 register() 方法会抛出异常)
+                            JOptionPane.showMessageDialog(null, "注册失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                        }
+
+                    } catch (Exception ex) {
+                        // 处理注册过程中发生的异常
+                        JOptionPane.showMessageDialog(null, "注册出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
 
@@ -93,6 +134,6 @@ public class RegisterView extends JFrame {
     }
 
     public static void main(String[] args) {
-        RegisterView tmp = new RegisterView();
+
     }
 }
