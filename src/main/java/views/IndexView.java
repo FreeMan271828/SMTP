@@ -76,7 +76,7 @@ public class IndexView extends JFrame implements ActionListener{
                     IndexView frame = new IndexView();
                     frame.setVisible(true);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    e.fillInStackTrace();
                 }
             }
         });
