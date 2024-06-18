@@ -16,20 +16,27 @@ public class EmailService {
 
     private final static Scanner scanner = new Scanner(System.in);
 
-    public static void print(Email email, User user, Connection connection, JTextArea contentArea) throws SQLException {
+    public static void print(Email email, User user, Connection connection) throws SQLException {
         UserService userService = new UserService(user, connection);
-
-        // 将邮件信息添加到 contentArea
-        contentArea.append("邮件id:     " + email.getId() + "\n");
-        contentArea.append("发送人Id:   " + email.getSenderId() + "\n");
-        contentArea.append("发送人姓名:  " + userService.getUserById() + "\n");
-        contentArea.append("接收方地址:  " + email.getReceiverAddress() + "\n");
-        contentArea.append("主题:       " + email.getSubject() + "\n");
-        contentArea.append("内容:       " + email.getContent() + "\n");
-        contentArea.append("备注:       " + email.getTip() + "\n");
-        contentArea.append("最后修改时间: " + email.getGmtModified() + "\n\n");
+        System.out.println("邮件id:     " + email.getId() + "\n");
+        System.out.println("发送人Id:   " + email.getSenderId() + "\n");
+        System.out.println("发送人姓名:  " + userService.getUserById() + "\n");
+        System.out.println("接收方地址:  " + email.getReceiverAddress() + "\n");
+        System.out.println("主题:       " + email.getSubject() + "\n");
+        System.out.println("内容:       " + email.getContent() + "\n");
+        System.out.println("备注:       " + email.getTip() + "\n");
+        System.out.println("最后修改时间: " + email.getGmtModified() + "\n\n");
     }
 
+//        // 将邮件信息添加到 contentArea
+//        contentArea.append("邮件id:     " + email.getId() + "\n");
+//        contentArea.append("发送人Id:   " + email.getSenderId() + "\n");
+//        contentArea.append("发送人姓名:  " + userService.getUserById() + "\n");
+//        contentArea.append("接收方地址:  " + email.getReceiverAddress() + "\n");
+//        contentArea.append("主题:       " + email.getSubject() + "\n");
+//        contentArea.append("内容:       " + email.getContent() + "\n");
+//        contentArea.append("备注:       " + email.getTip() + "\n");
+//        contentArea.append("最后修改时间: " + email.getGmtModified() + "\n\n");
     public static Email input(Email email,Connection connection){
         //发件方和最后修改时间自动填入
         System.out.println("请输入邮件的接受地址");

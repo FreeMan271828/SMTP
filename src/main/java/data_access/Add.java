@@ -55,7 +55,7 @@ public class Add {
             throw new Exception("邮件信息不全");
         }
         Statement stmt = coon.createStatement();
-        String sql = "INSERT INTO email(id,sender_Id,receiver_address,subject,content,tip.gmt_created,gmt_modified)" +
+        String sql = "INSERT INTO email(id,sender_Id,receiver_address,subject,content,tip,gmt_created,gmt_modified)" +
                 "VALUES('" +
                 email.getId() + "','" +
                 email.getSenderId() + "', '" +

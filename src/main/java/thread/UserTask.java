@@ -53,7 +53,7 @@ public class UserTask implements Runnable{
                             break;
                         }else{
                             LOG.info("以下是该邮件的详细信息");
-                            EmailService.print(email,user,connection,null);
+                            EmailService.print(email,user,connection);
                             //填入邮件信息
                             EmailService.input(email, connection);
                             //写邮件

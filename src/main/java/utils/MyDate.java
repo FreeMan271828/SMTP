@@ -12,7 +12,7 @@ public class MyDate {
         // 创建SimpleDateFormat对象，并设置日期时间格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        // 使用SimpleDateFormat格式化日期时间
+        // 使用SimpleDateFormat格式化日期时间Dhe
 
         return sdf.format(currentDate);
     }

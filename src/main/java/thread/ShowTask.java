@@ -26,7 +26,7 @@ public class ShowTask {
                 Email email = emails.get(i);
                 try {
                     System.out.println("第"+i+1+"封邮件如下");
-                    EmailService.print(email,user,connection,null);
+                    EmailService.print(email,user,connection);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
