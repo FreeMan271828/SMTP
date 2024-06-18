@@ -77,7 +77,7 @@ public class Get {
     public static List<User> getUserBySql(Statement stmt, String sql){
         List<User> users = new ArrayList<>();
         try (ResultSet rs = stmt.executeQuery(sql)) {
-            if (rs.next()) {
+            while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getString("id"));
                 user.setName(rs.getString("name"));
@@ -101,7 +101,7 @@ public class Get {
         List<Email> emails;
         try (ResultSet rs = stmt.executeQuery(sql)) {
             emails = new ArrayList<>();
-            if (rs.next()) {
+            while (rs.next()) {
                 Email email = new Email();
                 email.setId(rs.getString("id"));
                 email.setSenderId(rs.getString("sender_id"));
