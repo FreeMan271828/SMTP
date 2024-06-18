@@ -34,7 +34,7 @@ public class WritePanel extends JPanel {
         add(subjectField, gbc);
 
         // 收件人 (加大字体，加宽输入框)
-        JLabel recipientLabel = new JLabel("收件人:");
+        JLabel recipientLabel = new JLabel("收件人邮箱:");
         recipientLabel.setFont(recipientLabel.getFont().deriveFont(16f)); // 设置字体大小为 16
         JTextField recipientField = new JTextField(40); // 加宽输入框
         gbc.gridx = 0;
@@ -116,6 +116,7 @@ public class WritePanel extends JPanel {
                 String subject = subjectField.getText();
                 String recipient = recipientField.getText();
                 String content = contentArea.getText();
+
 
                 // 创建 Email 对象
                 Email email = new Email();

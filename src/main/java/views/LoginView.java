@@ -97,17 +97,16 @@ public class LoginView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //判断是否全部输入了
                 if (areAllFieldsFilled()) {
-                    String name = xtext.getText();
-                    String email = ytext.getText();
-                    String password = mtext.getText();
-                    String authorizationCode = stext.getText();
-
+//                    String name = xtext.getText();
+//                    String email = ytext.getText();
+//                    String password = mtext.getText();
+//                    String authorizationCode = stext.getText();
+                    String email = "1114509193@qq.com";
+                    String password = "123456";
                     // 创建 User 对象
                     User user = new User();
-                    user.setName(name);
                     user.setEmail(email);
                     user.setPassword(password);
-                    user.setAuthorizationCode(authorizationCode);
                     try {
                         // 使用 LoginService 进行登录验证
                         LoginService loginService = new LoginService(user, connection);
@@ -140,9 +139,9 @@ public class LoginView extends JFrame {
 
     }
     private boolean areAllFieldsFilled() {
-        if (xtext.getText().isEmpty() ||
-                ytext.getText().isEmpty() ||
-                mtext.getText().isEmpty() ||
+        if (xtext.getText().isEmpty() &&
+                ytext.getText().isEmpty() &&
+                mtext.getText().isEmpty() &&
                 stext.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "请填写所有字段！", "错误", JOptionPane.ERROR_MESSAGE);
             return false;
