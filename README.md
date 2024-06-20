@@ -1,7 +1,8 @@
 # SMTP邮件发送
 
 ### 项目部署
-将项目下载解压，进入 `/target`目录，使用 `java -jar SMTP-1.0-SNAPSHOT.jar`，即可使用
+   1. 将项目下载解压，进入 `/target`目录，使用 `java -jar SMTP-1.0-SNAPSHOT.jar`，即可使用
+   2. 将项目克隆下来后，使用 `mvn package`，就会出现 `/target目录`，然后按照1即可
 
 ### 使用说明
    1. 用户在注册时需要提交自己的name,email,password,authorizationCode(简称为AC),phone(非必须)
