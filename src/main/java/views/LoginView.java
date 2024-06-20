@@ -47,12 +47,12 @@ public class LoginView extends JFrame {
         JButton zb = new JButton("注册");
         Container m = getContentPane();
         getContentPane().setBackground(Color.white);
-        m.add(ylabel);
         m.add(mlabel);
-        m.add(ytext);
+        m.add(ylabel);
         m.add(mtext);
-        m.add(db);
+        m.add(ytext);
         m.add(zb);
+        m.add(db);
         Font font = new Font("仿宋", Font.PLAIN, 20);
         ylabel.setFont(font);
         mlabel.setFont(font);
@@ -81,12 +81,8 @@ public class LoginView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 //判断是否全部输入了
                 if (areAllFieldsFilled()) {
-//                    String name = xtext.getText();
-//                    String email = ytext.getText();
-//                    String password = mtext.getText();
-//                    String authorizationCode = stext.getText();
-                    String email = "1114509193@qq.com";
-                    String password = "123456";
+                    String email = ytext.getText();
+                    String password = mtext.getText();
                     // 创建 User 对象
                     User user = new User();
                     user.setEmail(email);

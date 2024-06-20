@@ -10,6 +10,7 @@ import utils.MyUuid;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmailService {
@@ -48,6 +49,10 @@ public class EmailService {
         System.out.println("请输入备注");
         email.setTip(scanner.next());
         return email;
+    }
+
+    public static List<Email>GetSendEmails(User user){
+        return null;
     }
 
 

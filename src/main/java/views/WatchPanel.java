@@ -4,7 +4,6 @@ import data_access.Get;
 import data_object.Email;
 import data_object.User;
 import service.EmailService;
-import service.UserService;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -72,7 +71,7 @@ public class WatchPanel extends JPanel {
         try {
             tableModel.setRowCount(0);
 
-            List<Email> emails = Get.getUserEmails(user, connection); // 使用正确的Get方法
+            List<Email> emails = Get.GetSendEmails(user, connection); // 使用正确的Get方法
 
             for (Email email : emails) {
                 tableModel.addRow(new Object[]{email.getSubject(), Get.getUserById(email.getSenderId(),connection).getName()}); // 显示邮件ID
