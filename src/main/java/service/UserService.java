@@ -24,6 +24,6 @@ public class UserService {
     }
 
     public List<Email> getEmails() throws SQLException {
-        return Get.getUserEmails(user,connection);
+        return Get.GetSendEmails(user,connection);
     }
 }

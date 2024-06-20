@@ -10,6 +10,7 @@ import utils.MyUuid;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class EmailService {
@@ -53,7 +54,6 @@ public class EmailService {
         email.setTip(scanner.next());
         return email;
     }
-
 
     public static Email write(Email email,User sender,Connection connection) throws Exception {
         //如果邮件为空，则需要新建一封新邮件
