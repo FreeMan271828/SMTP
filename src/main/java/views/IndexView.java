@@ -26,15 +26,18 @@ public class IndexView extends JFrame implements ActionListener{
         JPanel buttonPanel = new JPanel(new GridLayout(4, 1, 10, 20));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         JButton writeButton = new JButton("写邮件");
-        JButton watchButton = new JButton("查看邮件");
+        JButton watchButton = new JButton("发件箱");
+        JButton getButton = new JButton("收件箱");
         JButton exitButton = new JButton("退出");
         buttonPanel.add(writeButton);
         buttonPanel.add(watchButton);
+        buttonPanel.add(getButton);
         buttonPanel.add(exitButton);
         contentPane.add(buttonPanel, BorderLayout.WEST);
         Dimension buttonSize = new Dimension(100, 30);
         writeButton.setPreferredSize(buttonSize);
         watchButton.setPreferredSize(buttonSize);
+        getButton.setPreferredSize(buttonSize);
         exitButton.setPreferredSize(buttonSize);
 
         // 主面板，使用 CardLayout
@@ -46,8 +49,10 @@ public class IndexView extends JFrame implements ActionListener{
         // 添加子面板
         WritePanel writePanel = new WritePanel(user,connection,this);
         WatchPanel watchPanel = new WatchPanel(user,connection,this);
+        GetPanel getPanel = new GetPanel(user,connection,this);
         mainPanel.add(writePanel, "writePanel");
         mainPanel.add(watchPanel, "watchPanel");
+        mainPanel.add(getPanel,"getPanel");
 
         // 按钮事件处理
         writeButton.addActionListener(new ActionListener() {
@@ -64,6 +69,12 @@ public class IndexView extends JFrame implements ActionListener{
             }
         });
 
+        getButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(mainPanel, "getPanel");
+            }
+        });
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

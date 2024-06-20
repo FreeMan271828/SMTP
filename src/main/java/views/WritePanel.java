@@ -1,5 +1,6 @@
 package views;
 
+import data_access.Add;
 import data_object.Email;
 import data_object.User;
 import service.EmailService;
@@ -123,6 +124,7 @@ public class WritePanel extends JPanel {
                 email.setReceiverAddress(recipient);
                 email.setSubject(subject);
                 email.setContent(content);
+                
 
                 try {
                     // 使用 SendEmailService 发送邮件
