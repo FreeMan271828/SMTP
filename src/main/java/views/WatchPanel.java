@@ -4,11 +4,8 @@ import data_access.Get;
 import data_object.Email;
 import data_object.User;
 import service.EmailService;
-<<<<<<< HEAD
 import service.SendEmailService;
-import service.UserService;
-=======
->>>>>>> a079ee417566a04ddec5d2d9c38add20303ecf19
+
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -34,7 +31,7 @@ public class WatchPanel extends JPanel {
         this.connection = connection;
 
         // 邮件列表
-        String[] columnNames = {"邮件id","主题", "接收人"};
+        String[] columnNames = {"邮件id","主题", "接收人","发送时间"};
         tableModel = new DefaultTableModel(new Object[0][0], columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -87,7 +84,17 @@ public class WatchPanel extends JPanel {
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
+                    // 使用 EmailService 保存邮件
+                    Email savedEmail = EmailService.write(email, user, connection);
+                    if (savedEmail != null) {
+                        // 保存成功
+                        JOptionPane.showMessageDialog(null, "邮件保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        // 保存失败
+                        JOptionPane.showMessageDialog(null, "邮件保存失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                    }
                     // 使用 SendEmailService 发送邮件
                     SendEmailService.sendEmail(email, user);
 
@@ -111,7 +118,7 @@ public class WatchPanel extends JPanel {
             List<Email> emails = Get.GetSendEmails(user, connection); // 使用正确的Get方法
 
             for (Email email : emails) {
-                tableModel.addRow(new Object[]{email.getId(),email.getSubject(),email.getReceiverAddress()}); // 显示邮件ID
+                tableModel.addRow(new Object[]{email.getId(),email.getSubject(),email.getReceiverAddress(),email.getGmtModified()}); // 显示邮件ID
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "获取邮件列表出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);

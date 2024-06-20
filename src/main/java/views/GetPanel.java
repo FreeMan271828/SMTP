@@ -72,7 +72,6 @@ public class GetPanel extends JPanel {
                 }
             }
         });
-
         refreshEmailTable();
     }
 
@@ -81,7 +80,7 @@ public class GetPanel extends JPanel {
         try {
             tableModel.setRowCount(0);
 
-            List<Email> emails = Get.getUserEmails(user, connection); // 使用正确的Get方法
+            List<Email> emails = Get.GetReceiveEmails(user, connection); // 使用正确的Get方法
 
             for (Email email : emails) {
                 tableModel.addRow(new Object[]{email.getId(),email.getSubject(), Get.getUserById(email.getSenderId(),connection).getName()}); // 显示邮件ID
