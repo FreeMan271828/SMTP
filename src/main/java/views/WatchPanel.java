@@ -75,7 +75,7 @@ public class WatchPanel extends JPanel {
             List<Email> emails = Get.getUserEmails(user, connection); // 使用正确的Get方法
 
             for (Email email : emails) {
-                tableModel.addRow(new Object[]{email.getSubject(), email.getSenderId()}); // 显示邮件ID
+                tableModel.addRow(new Object[]{email.getSubject(), Get.getUserById(email.getSenderId(),connection).getName()}); // 显示邮件ID
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "获取邮件列表出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
