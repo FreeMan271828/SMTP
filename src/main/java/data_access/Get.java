@@ -25,6 +25,15 @@ public class Get {
         return getUserBySql(stmt,sql);
     }
 
+    public static String GetNameByAddress(String address, Connection coon)throws SQLException{
+        String sql = "select * from user where email = '" + address + "'";
+        List<User> users = getUserBySql(coon.createStatement(),sql);
+        if(users.isEmpty()){ return null;}
+        else{
+            return users.getFirst().getName();
+        }
+    }
+
     public static List<Email>GetReceiveEmails(User user, Connection coon) throws SQLException {
         if (user.getId().isEmpty()||user.getId().isBlank()){
             LOG.error("用户id为空");

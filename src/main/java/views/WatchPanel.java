@@ -26,7 +26,7 @@ public class WatchPanel extends JPanel {
         this.connection = connection;
 
         // 邮件列表
-        String[] columnNames = {"主题", "发件人"};
+        String[] columnNames = {"主题", "收件人"};
         tableModel = new DefaultTableModel(new Object[0][0], columnNames) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -74,7 +74,12 @@ public class WatchPanel extends JPanel {
             List<Email> emails = Get.GetSendEmails(user, connection); // 使用正确的Get方法
 
             for (Email email : emails) {
-                tableModel.addRow(new Object[]{email.getSubject(), Get.getUserById(email.getSenderId(),connection).getName()}); // 显示邮件ID
+                String receiveName = Get.GetNameByAddress(email.getReceiverAddress(),connection);
+                if(receiveName==null){
+                    tableModel.addRow(new Object[]{email.getSubject(),"未查找到此用户" });
+                }else{
+                    tableModel.addRow(new Object[]{email.getSubject(),receiveName }); // 显示邮件ID
+                }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "获取邮件列表出错: " + ex.getMessage(), "错误", JOptionPane.ERROR_MESSAGE);
