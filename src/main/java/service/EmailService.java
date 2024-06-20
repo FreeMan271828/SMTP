@@ -55,11 +55,6 @@ public class EmailService {
         return email;
     }
 
-    public static List<Email>GetSendEmails(User user){
-        return null;
-    }
-
-
     public static Email write(Email email,User sender,Connection connection) throws Exception {
         //如果邮件为空，则需要新建一封新邮件
         if(email.getId()==null||email.getId().isBlank()||email.getId().isEmpty()){

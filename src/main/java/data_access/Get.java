@@ -25,6 +25,16 @@ public class Get {
         return getUserBySql(stmt,sql);
     }
 
+    public static List<Email>GetReceiveEmails(User user, Connection coon) throws SQLException {
+        if (user.getId().isEmpty()||user.getId().isBlank()){
+            LOG.error("用户id为空");
+            return null;
+        }
+        Statement statement = coon.createStatement();
+        String sql = "select * from email where receiver_address= '" + user.getEmail()+"'";
+        return getEmailBySql(statement,sql);
+    }
+
     public static List<Email> GetSendEmails(User user, Connection coon) throws SQLException {
         if (user.getId().isEmpty()||user.getId().isBlank()){
             LOG.error("用户id为空");
