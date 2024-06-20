@@ -128,6 +128,8 @@ public class Get {
                 email.setSubject(rs.getString("subject"));
                 email.setTip(rs.getString("tip"));
                 email.setContent(rs.getString("content"));
+                email.setGmtCreated(rs.getString("gmt_created"));
+                email.setGmtModified(rs.getString("gmt_modified"));
                 emails.add(email);
             }
         }

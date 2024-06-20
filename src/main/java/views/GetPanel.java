@@ -72,7 +72,6 @@ public class GetPanel extends JPanel {
                 }
             }
         });
-
         refreshEmailTable();
     }
 

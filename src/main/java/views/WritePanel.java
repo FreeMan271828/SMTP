@@ -1,6 +1,5 @@
 package views;
 
-import data_access.Add;
 import data_object.Email;
 import data_object.User;
 import service.EmailService;
@@ -114,6 +113,7 @@ public class WritePanel extends JPanel {
         sendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 String subject = subjectField.getText();
                 String recipient = recipientField.getText();
                 String content = contentArea.getText();
@@ -124,11 +124,20 @@ public class WritePanel extends JPanel {
                 email.setReceiverAddress(recipient);
                 email.setSubject(subject);
                 email.setContent(content);
-                
-
                 try {
+                    // 使用 EmailService 保存邮件
+                    Email savedEmail = EmailService.write(email, user, connection);
+                    if (savedEmail != null) {
+                        // 保存成功
+                        JOptionPane.showMessageDialog(null, "邮件保存成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        // 保存失败
+                        JOptionPane.showMessageDialog(null, "邮件保存失败！", "错误", JOptionPane.ERROR_MESSAGE);
+                    }
                     // 使用 SendEmailService 发送邮件
-                    SendEmailService.sendEmail(email, user);
+                    if (savedEmail != null) {
+                        SendEmailService.sendEmail(savedEmail, user);
+                    }
 
                     // 发送成功
                     JOptionPane.showMessageDialog(null, "邮件发送成功！", "提示", JOptionPane.INFORMATION_MESSAGE);
