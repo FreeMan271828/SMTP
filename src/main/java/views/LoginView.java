@@ -57,10 +57,10 @@ public class LoginView extends JFrame {
         ylabel.setFont(font);
         mlabel.setFont(font);
         setBounds(480,100,503,570);
-        mlabel.setBounds(40,135,180,35);
-        mtext.setBounds(180,135,230,35);
-        ylabel.setBounds(40,230,180,35);
-        ytext.setBounds(180,230,230,35);
+        ylabel.setBounds(40,135,180,35);
+        ytext.setBounds(180,135,230,35);
+        mlabel.setBounds(40,230,180,35);
+        mtext.setBounds(180,230,230,35);
         db.setBounds(105,470,100,35);
         zb.setBounds(275,470,100,35);
 
@@ -115,8 +115,6 @@ public class LoginView extends JFrame {
 
             }
         });
-
-
     }
     private boolean areAllFieldsFilled() {
         if (ytext.getText().isEmpty() &&

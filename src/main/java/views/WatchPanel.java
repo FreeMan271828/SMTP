@@ -88,7 +88,7 @@ public class WatchPanel extends JPanel {
 
             if (email != null) {
                 // 使用 EmailService.print 方法显示邮件内容，并将输出重定向到 contentArea
-                EmailService.print(email, user, connection);
+                EmailService.print2(email, user, connection,contentArea);
             } else {
                 contentArea.setText("找不到邮件内容。");
             }
