@@ -37,16 +37,10 @@ public class Drop {
                 count++;
             }
             return count;
-        } catch (SQLException e) {
-            e.fillInStackTrace();
-        }
+        } catch (SQLException e) {e.fillInStackTrace();}
         finally {
-            if(stmt!=null){
-                stmt.close();
-            }
-            if(result!=null){
-                result.close();
-            }
+            if(stmt!=null){stmt.close();}
+            if(result!=null){result.close();}
         }
         return 0;
     }
@@ -74,20 +68,12 @@ public class Drop {
                 stmt.setString(1,email.getId());
             }
             result = stmt.executeQuery();
-            while(result.next()){
-                count++;
-            }
+            while(result.next()){count++;}
             return count;
-        } catch (SQLException e) {
-            e.fillInStackTrace();
-        }
+        } catch (SQLException e) {e.fillInStackTrace();}
         finally {
-            if(stmt!=null){
-                stmt.close();
-            }
-            if(result!=null){
-                result.close();
-            }
+            if(stmt!=null){stmt.close();}
+            if(result!=null){result.close();}
         }
         return 0;
     }

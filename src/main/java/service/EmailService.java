@@ -88,7 +88,6 @@ public class EmailService {
             if(!email.getContent().isBlank()&&!email.getContent().isEmpty()){
                 tempMail.setContent(email.getContent());
             }
-            //TODO 进行修改操作
             if(Modify.modifyEmail(email,connection)){ return Get.getEmailById(email.getId(),connection); }
             else{
                 System.out.println("修改失败");
